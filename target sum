@@ -1,0 +1,44 @@
+#include<bits/stdc++.h>
+using namespace std;
+
+typedef long long ll;
+int dp[51][50001];
+ll wt[51];
+void fun(ll n,ll w)
+{
+    for(int i=0;i<=n;i++)
+    {
+        for(int j=0;j<=w;j++)
+        {
+            if(j==0)
+                dp[i][j]=1;
+            else if(i==0)
+                dp[i][j]=0;
+            else if(wt[i]>j)
+                dp[i][j]=dp[i-1][j];
+            else
+                dp[i][j]=dp[i-1][j]||dp[i-1][j-wt[i]];
+            //cout<<dp[i][j]<<" ";
+        }
+        //cout<<endl;
+    }
+}
+int main()
+{
+    int t;
+    cin>>t;
+    while(t--)
+    {
+        ll n,k;cin>>n>>k;
+        for(int i=1;i<=n;i++)
+            cin>>wt[i];
+        memset(dp,-1,sizeof(dp));
+        ll sum=0;
+        for(int i=1;i<=n;i++)
+        sum+=wt[i];
+        ll chk=(sum-k)/2;
+        fun(n,chk);
+         cout<<dp[n][chk]<<endl;
+        cout<< ans <<endl;
+    }
+}

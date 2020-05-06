@@ -1,0 +1,12 @@
+ll dp[2001][2001];
+vector<ll>wt(2005),vl(2005);
+ll fun(ll n,ll w)
+{
+    if(w<=0||n==0)
+        return dp[n][w]=0;
+    if(dp[n][w]!=-1)
+        return dp[n][w];
+    if(wt[n]>w)
+        return dp[n][w]=fun(n-1,w);
+    return dp[n][w]=max(fun(n-1,w),vl[n]+fun(n-1,w-wt[n]));
+}

@@ -1,12 +1,23 @@
-ll dp[2001][2001];
-vector<ll>ar(2001);
-ll fun(ll n,ll sum)
+    typedef long long ll;
+
+class Solution {
+public:
+    int dp[2001][2001];
+    ll wt[2001];
+bool fun(ll n,ll w)
 {
-    if(sum<=0||n==0)
-        return dp[n][sum]=0;
-    if(dp[n][sum]!=-1)
-        return dp[n][sum];
-    if(ar[n]>sum)
-        return dp[n][sum]=fun(n-1,sum);
-    return dp[n][sum]=max(fun(n-1,sum),ar[n]+fun(n,sum-ar[n]));
+    if(w==0)
+        return dp[n][w]=1;
+    if(n==0)
+        return dp[n][w]=0;
+    if(dp[n][w]!=-1)
+        return dp[n][w];
+    if(wt[n]>w)
+        return dp[n][w]=fun(n-1,w);
+    return dp[n][w]=fun(n-1,w)||fun(n-1,w-wt[n]);
 }
+    bool subset sum(vector<int>& nums,int sum) {
+        memset(dp,-1,sizeof(dp));
+        return fun(nums.size(),sum);
+    }
+};

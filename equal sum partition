@@ -1,0 +1,29 @@
+    typedef long long ll;
+
+class Solution {
+public:
+    int dp[2001][2001];
+    ll wt[2001];
+bool fun(ll n,ll w)
+{
+    if(w==0)
+        return dp[n][w]=1;
+    if(n==0)
+        return dp[n][w]=0;
+    if(dp[n][w]!=-1)
+        return dp[n][w];
+    if(wt[n]>w)
+        return dp[n][w]=fun(n-1,w);
+    return dp[n][w]=fun(n-1,w)||fun(n-1,w-wt[n]);
+}
+    bool canPartition(vector<int>& nums) {
+        memset(dp,-1,sizeof(dp));
+        ll sum=0;
+        for(int i=1;i<=nums.size();i++)
+                sum+=wt[i]=nums[i-1];
+        if(sum%2)
+            return 0;
+        else
+            return fun(nums.size(),sum/2);
+    }
+};
